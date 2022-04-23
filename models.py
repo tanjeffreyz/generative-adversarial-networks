@@ -25,7 +25,8 @@ class MnistG(nn.Module):
             LinearBlock(latent_size, 128),
             LinearBlock(128, 256),
             LinearBlock(256, 512),
-            nn.Linear(512, 28*28),
+            LinearBlock(512, 1024),
+            nn.Linear(1024, 28*28),
             nn.Tanh()
         )
 
@@ -42,7 +43,6 @@ class MnistD(nn.Module):
             LinearBlock(28*28, 512),
             LinearBlock(512, 256),
             LinearBlock(256, 1),
-            # LinearBlock(128, 1),
             nn.Sigmoid()            # Sigmoid great for probabilities b/c from 0 to 1
         )
 

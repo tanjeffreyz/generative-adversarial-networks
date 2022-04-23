@@ -18,7 +18,7 @@ parser.add_argument(
     '-k', '--k', type=int, default=1,
     help='Trains generator once every K epochs for discriminator'
 )
-parser.add_argument('-l', '--latent', type=int, default=100)
+parser.add_argument('-lr', metavar='lr', type=float, default=1E-5)
 args = parser.parse_args()
 
 writer = SummaryWriter()
@@ -28,13 +28,13 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # Initialize based on dataset
 if args.dataset == 'mnist':
     dataset = MNIST
-    G = MnistG(args.latent)
+    G = MnistG(100)
     D = MnistD()
     epochs = 25
     cp_period = 1
 else:
     dataset = CIFAR10
-    G = Cifar10G(args.latent)
+    G = Cifar10G(100)
     D = Cifar10D()
     epochs = 100
     cp_period = 5
@@ -48,9 +48,8 @@ train_set = dataset(
 train_loader = DataLoader(train_set, batch_size=128, shuffle=True)
 train_iter = iter(train_loader)
 
-learning_rate = 0.0001
-g_opt = torch.optim.Adam(G.parameters(), lr=learning_rate)
-d_opt = torch.optim.Adam(D.parameters(), lr=learning_rate)
+g_opt = torch.optim.Adam(G.parameters(), lr=args.lr)
+d_opt = torch.optim.Adam(D.parameters(), lr=args.lr)
 
 loss_function = torch.nn.BCELoss()
 
@@ -65,6 +64,12 @@ d_weight_dir = os.path.join(root, 'discriminator')
 g_weight_dir = os.path.join(root, 'generator')
 os.makedirs(d_weight_dir)
 os.makedirs(g_weight_dir)
+with open(os.path.join(root, 'params.txt'), 'w') as file:
+    file.write('\n'.join([
+        '\n'.join(f'{k} = {v}' for k, v in vars(args).items()), '\n',
+        'Generator:', str(G), '\n',
+        'Discriminator:', str(D), ''
+    ]))
 
 
 # Metrics
@@ -97,12 +102,12 @@ for i in tqdm(range(len(train_loader) * epochs), desc='Iteration'):
         d_opt.zero_grad()
         d_real = D.forward(data)
         d_fake = D.forward(G.forward(noise))
-        d_loss = loss_function(d_real, real) + loss_function(d_fake, fake)
+        d_loss = (loss_function(d_real, real) + loss_function(d_fake, fake)) / 2
         d_loss.backward()
         d_opt.step()
 
         loss += d_loss.item() / args.k
-        error += (torch.sum(d_real < 0.5) + torch.sum(d_fake > 0.5)) / (2 * args.k * data.shape[0])
+        error += torch.mean(d_fake) / args.k
         del data, real, fake, noise
     d_losses = np.append(d_losses, [[i], [loss]], axis=1)
     errors = np.append(errors, [[i], [error]], axis=1)
