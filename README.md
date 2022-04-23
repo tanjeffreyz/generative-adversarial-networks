@@ -44,4 +44,5 @@ The Jensen-Shannon divergence is defined as:
 ## References
 [[1](https://arxiv.org/abs/1406.2661)] Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, 
 Sherjil Ozair, Aaron Courville, Yoshua Bengio. _Generative Adversarial Networks_. 
-arXiv:1512.03385v1 [cs.CV] 10 Dec 2015.
+arXiv:1406.2661v1 [stat.ML] 10 Jun 2014
+
