@@ -8,28 +8,29 @@ Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 ## Notes
 ### Proof of Optimality
 The handwritten math below shows the work that was omitted in [1].
-![](images/proof_of_optimality.png)
+![](images/optimality.png)
 
 ### Kullback-Leibler Divergence (KL)
 Also known as **relative entropy**. It measures how much one probability distribution differs from another distribution.
 
 ![](images/kullback_leibler.png)
 
-According to [2], Kullback-Leibler divergence can also be viewed as **excess entropy**, which is the amount of
+The Kullback-Leibler divergence can also be viewed as **excess entropy**, which is the amount of
 extra information that must be communicated for a code that is optimal for **_Q_** but not for **_P_**, compared to a code that
 is optimal for **_P_**.
 
-![img.png](images/kullback_leibler_motivation.png)
+![](images/kullback_leibler_motivation.png)
 
 
 ### Jensen-Shannon Divergence (JSD)
+The Jensen-Shannon divergence is defined as:
 
+![](images/jensen_shannon.png) where ![](images/jsd_m.png)
 
-
-
-
-
-
+**Properties**:
+- JSD is non-negative
+- JSD is symmetric: `JSD(P || Q) = JSD(Q || P)`
+- **JSD is 0 iff P = Q**
 
 
 
