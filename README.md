@@ -4,6 +4,12 @@ PyTorch implementation of "Generative Adversarial Networks" by Ian J. Goodfellow
 Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 
 
+## Methods
+
+
+## Results
+
+
 
 ## Notes
 ### Proof of Optimality
