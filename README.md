@@ -25,7 +25,7 @@ is optimal for **_P_**.
 ### Jensen-Shannon Divergence (JSD)
 The Jensen-Shannon divergence is defined as:
 
-![](images/jensen_shannon.png) where ![](images/jsd_m.png)
+![](images/jensen_shannon.png) &emsp; where &emsp; ![](images/jsd_m.png)
 
 **Properties**:
 - JSD is non-negative
