@@ -4,6 +4,12 @@ PyTorch implementation of "Generative Adversarial Networks" by Ian J. Goodfellow
 Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 
 
+## Methods
+
+
+## Results
+
+
 
 ## Notes
 ### Proof of Optimality
@@ -11,7 +17,7 @@ The handwritten math below shows the work that was omitted in [1].
 ![](images/optimality.png)
 
 ### Kullback-Leibler Divergence (KL)
-Also known as **relative entropy**. It measures how much one probability distribution differs from another distribution.
+According to [2], KL is also known as **relative entropy**. It measures how much one probability distribution differs from another distribution.
 
 ![](images/kullback_leibler.png)
 
@@ -23,7 +29,7 @@ is optimal for **_P_**.
 
 
 ### Jensen-Shannon Divergence (JSD)
-The Jensen-Shannon divergence is defined as:
+The Jensen-Shannon divergence is defined in [3] as:
 
 ![](images/jensen_shannon.png) &emsp; where &emsp; ![](images/jsd_m.png)
 
@@ -38,4 +44,9 @@ The Jensen-Shannon divergence is defined as:
 ## References
 [[1](https://arxiv.org/abs/1406.2661)] Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, 
 Sherjil Ozair, Aaron Courville, Yoshua Bengio. _Generative Adversarial Networks_. 
-arXiv:1512.03385v1 [cs.CV] 10 Dec 2015.
+arXiv:1406.2661v1 [stat.ML] 10 Jun 2014
+
+[[2](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence)] Wikipedia. _Kullback–Leibler divergence_.
+
+[[3](https://en.wikipedia.org/wiki/Jensen%E2%80%93Shannon_divergence)] Wikipedia. _Jensen–Shannon divergence_.
+
