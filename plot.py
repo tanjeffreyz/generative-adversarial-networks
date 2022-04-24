@@ -66,7 +66,7 @@ def generate_samples(target, cp):
 
 if __name__ == '__main__':
     SHOW = False
-    TARGET = 'models/mnist/04_23_2022/'
+    TARGET = 'models/mnist/04_23_2022/23_41_24'
     WEIGHTS = (
         'cp_2345',
         'cp_3752',

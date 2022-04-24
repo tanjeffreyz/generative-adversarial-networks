@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('dataset', type=str.lower, choices=('mnist', 'cifar10'))
 parser.add_argument(
     '-k', '--k', type=int, default=1,
-    help='Trains generator once every K epochs for discriminator'
+    help='Trains generator once every K iterations'
 )
 parser.add_argument('-lr', metavar='lr', type=float, default=1E-5)
 args = parser.parse_args()
