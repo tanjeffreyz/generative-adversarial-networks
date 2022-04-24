@@ -4,7 +4,7 @@ import torch.nn as nn
 
 class LinearBlock(nn.Module):
     def __init__(self, in_size, out_size,
-                 activation=nn.LeakyReLU(negative_slope=0.1)):
+                 activation=nn.LeakyReLU(negative_slope=0.2)):
         super().__init__()
 
         self.model = nn.Sequential(

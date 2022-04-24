@@ -12,6 +12,7 @@ from torch.utils.data import DataLoader
 from models import MnistG, MnistD, Cifar10D, Cifar10G
 
 
+# Command line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('dataset', type=str.lower, choices=('mnist', 'cifar10'))
 parser.add_argument(
@@ -43,7 +44,10 @@ D.to(device)
 
 train_set = dataset(
     root='data', train=True, download=True,
-    transform=T.ToTensor()
+    transform=T.Compose([
+        T.ToTensor(),
+        T.Normalize((0.1307,), (0.3081,))
+    ])
 )
 train_loader = DataLoader(train_set, batch_size=128, shuffle=True)
 train_iter = iter(train_loader)
@@ -74,19 +78,26 @@ with open(os.path.join(root, 'params.txt'), 'w') as file:
 
 # Metrics
 def save_metrics():
-    np.save(os.path.join(root, 'd_losses'), d_losses)
+    np.save(os.path.join(root, 'd_losses_fake'), d_losses_fake)
+    np.save(os.path.join(root, 'd_losses_real'), d_losses_real)
     np.save(os.path.join(root, 'g_losses'), g_losses)
+    np.save(os.path.join(root, 'fake_errors'), fake_errors)
+    np.save(os.path.join(root, 'real_errors'), real_errors)
 
 
-d_losses = np.empty((2, 0))
+d_losses_fake = np.empty((2, 0))
+d_losses_real = np.empty((2, 0))
 g_losses = np.empty((2, 0))
-errors = np.empty((2, 0))
+fake_errors = np.empty((2, 0))
+real_errors = np.empty((2, 0))
 for i in tqdm(range(len(train_loader) * epochs), desc='Iteration'):
     ##################################
     #       Train Discriminator      #
     ##################################
-    loss = 0
-    error = 0
+    fake_loss = 0
+    real_loss = 0
+    fake_error = 0
+    real_acc = 0
     for _ in range(args.k):
         # Get next batch
         batch = next(train_iter, None)
@@ -102,17 +113,25 @@ for i in tqdm(range(len(train_loader) * epochs), desc='Iteration'):
         d_opt.zero_grad()
         d_real = D.forward(data)
         d_fake = D.forward(G.forward(noise))
-        d_loss = (loss_function(d_real, real) + loss_function(d_fake, fake)) / 2
+        l_fake = loss_function(d_fake, fake)
+        l_real = loss_function(d_real, real)
+        d_loss = (l_fake + l_real) / 2
         d_loss.backward()
         d_opt.step()
 
-        loss += d_loss.item() / args.k
-        error += torch.mean(d_fake) / args.k
+        fake_loss += l_fake.item() / args.k
+        real_loss += l_real.item() / args.k
+        fake_error += torch.mean(d_fake).item() / args.k
+        real_acc += torch.mean(d_real).item() / args.k
         del data, real, fake, noise
-    d_losses = np.append(d_losses, [[i], [loss]], axis=1)
-    errors = np.append(errors, [[i], [error]], axis=1)
-    writer.add_scalar('Losses/Discriminator', loss, i)
-    writer.add_scalar('Errors/Discriminator', error, i)
+    d_losses_fake = np.append(d_losses_fake, [[i], [fake_loss]], axis=1)
+    d_losses_real = np.append(d_losses_real, [[i], [real_loss]], axis=1)
+    fake_errors = np.append(fake_errors, [[i], [fake_error]], axis=1)
+    real_errors = np.append(real_errors, [[i], [1 - real_acc]], axis=1)
+    writer.add_scalar('Losses/D Fake', fake_loss, i)
+    writer.add_scalar('Losses/D Real', real_loss, i)
+    writer.add_scalar('Errors/Fake', fake_error, i)
+    writer.add_scalar('Errors/Real', 1 - real_acc, i)
 
     #############################
     #       Train Generator     #
