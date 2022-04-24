@@ -46,7 +46,7 @@ train_set = dataset(
     root='data', train=True, download=True,
     transform=T.Compose([
         T.ToTensor(),
-        T.Normalize((0.1307,), (0.3081,))
+        # T.Normalize((0.1307,), (0.3081,))
     ])
 )
 train_loader = DataLoader(train_set, batch_size=128, shuffle=True)
