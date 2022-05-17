@@ -19,7 +19,7 @@ parser.add_argument(
     '-k', '--k', type=int, default=1,
     help='Trains generator once every K iterations'
 )
-parser.add_argument('-lr', metavar='lr', type=float, default=1E-5)
+parser.add_argument('-lr', metavar='lr', type=float, default=1E-4)
 args = parser.parse_args()
 
 writer = SummaryWriter()
@@ -31,7 +31,7 @@ if args.dataset == 'mnist':
     dataset = MNIST
     G = MnistG(100)
     D = MnistD()
-    epochs = 25
+    epochs = 50
     cp_period = 1
 else:
     dataset = CIFAR10
