@@ -98,20 +98,44 @@ class Cifar10G(nn.Module):
     def __init__(self, latent_size):
         super().__init__()
 
+        self.latent_size = latent_size
         self.model = nn.Sequential(
-            nn.Linear(latent_size, 3*8*8),
+            nn.Linear(self.latent_size, 128*8*8),
             nn.LeakyReLU(negative_slope=0.2),
-            nn.ConvTranspose2d(1, 3)
+            Reshape(128, 8, 8),
+            nn.ConvTranspose2d(             # 8x8 -> 16x16
+                128, 128,
+                kernel_size=3, stride=2,
+                padding=1, output_padding=1
+            ),
+            nn.LeakyReLU(negative_slope=0.2),
+            nn.ConvTranspose2d(             # 16x16 -> 32x32
+                128, 128,
+                kernel_size=3, stride=2,
+                padding=1, output_padding=1
+            ),
+            nn.LeakyReLU(negative_slope=0.2),
+            nn.Conv2d(128, 3, kernel_size=3, padding=1),
+            nn.Tanh()
         )
+
+    def forward(self, x):
+        return self.model.forward(x)
 
 
 class Cifar10D(nn.Module):
     def __init__(self):
         super().__init__()
 
+        self.model = nn.Sequential(
+            nn.Conv2d(3, 64, kernel_size=3, stride=2, padding=1),       # 32x32 -> 16x16
+            nn.LeakyReLU(negative_slope=0.2),
+            nn.Conv2d(64, 64, kernel_size=3, stride=2, padding=1),      # 16x16 -> 8x8
+            nn.LeakyReLU(negative_slope=0.2),
+            nn.Flatten(),
+            nn.Linear(64*8*8, 1),
+            nn.Sigmoid()
+        )
 
-
-
-
-
-
+    def forward(self, x):
+        return self.model.forward(x)

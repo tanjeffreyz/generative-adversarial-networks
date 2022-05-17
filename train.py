@@ -34,12 +34,14 @@ if args.dataset == 'mnist':
     D = MnistD()
     epochs = 50
     cp_period = 1
+    batch_size = 128
 else:
     dataset = CIFAR10
     G = Cifar10G(100)
     D = Cifar10D()
     epochs = 100
-    cp_period = 5
+    cp_period = 2
+    batch_size = 64
 G.to(device)
 D.to(device)
 
@@ -51,7 +53,7 @@ train_set = dataset(
         # T.Normalize((0.1307,), (0.3081,))
     ])
 )
-train_loader = DataLoader(train_set, batch_size=128, shuffle=True)
+train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)
 train_iter = iter(train_loader)
 
 g_opt = torch.optim.Adam(G.parameters(), lr=args.lr)
@@ -125,7 +127,7 @@ for i in tqdm(range(len(train_loader) * epochs), desc='Iteration'):
         real_loss += l_real.item() / args.k
         fake_error += torch.mean(d_fake).item() / args.k
         real_acc += torch.mean(d_real).item() / args.k
-        del data, real, fake, noise
+        del batch, data, real, fake, noise, d_fake, d_real, l_fake, l_real, d_loss
     d_losses_fake = np.append(d_losses_fake, [[i], [fake_loss]], axis=1)
     d_losses_real = np.append(d_losses_real, [[i], [real_loss]], axis=1)
     fake_errors = np.append(fake_errors, [[i], [fake_error]], axis=1)
@@ -146,7 +148,7 @@ for i in tqdm(range(len(train_loader) * epochs), desc='Iteration'):
     g_loss.backward()
     g_opt.step()
 
-    del real, noise
+    del real, noise, g_loss
     g_losses = np.append(g_losses, [[i], [g_loss.item()]], axis=1)
     writer.add_scalar('Losses/Generator', g_loss.item(), i)
 

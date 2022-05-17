@@ -66,11 +66,16 @@ def generate_samples(target, cp):
 
 if __name__ == '__main__':
     SHOW = False
-    TARGET = 'models/mnist/05_16_2022/17_55_39'
+    TARGET = 'models/cifar10/05_16_2022/21_04_03'
     WEIGHTS = (
-        'final',
+        'cp_7820',
+        'cp_14076',
+        'cp_23460',
+        'cp_31280',
+        'cp_60996',
+        'final'
     )
 
-    plot_metrics(TARGET, stride=30)
+    plot_metrics(TARGET, stride=50)
     for c in WEIGHTS:
         generate_samples(TARGET, c)

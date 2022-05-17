@@ -4,15 +4,72 @@ PyTorch implementation of "Generative Adversarial Networks" by Ian J. Goodfellow
 Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 
 
-## Methods
+## MNIST Results
+
+<table><tr>
+    <td>
+        <img src="models/mnist/05_16_2022/17_05_14/samples/final.png" />
+    </td>
+    <td>
+        <img src="models/mnist/05_16_2022/17_05_14/metrics.png" />
+    </td>
+</tr></table>
 
 
-## Results
-### MNIST
-![](models/mnist/05_16_2022/17_05_14/samples/final.png)
+<details><summary><b>Notable Failures</b></summary>
+
+### Modal Collapse
+<table><tr>
+    <td>
+        <img src="models/mnist/04_23_2022/20_48_49_modal_collapse/samples/final.png" />
+    </td>
+    <td>
+        <img src="models/mnist/04_23_2022/20_48_49_modal_collapse/metrics.png" />
+    </td>
+</tr></table>
 
 
-### CIFAR-10
+### Convergence Fail
+<table><tr>
+    <td>
+        <img src="models/mnist/04_23_2022/21_39_37_convergence_fail/samples/final.png" />
+    </td>
+    <td>
+        <img src="models/mnist/04_23_2022/21_39_37_convergence_fail/metrics.png" />
+    </td>
+</tr></table>
+
+
+### Discriminator using Batch Normalization
+<table><tr>
+    <td>
+        <img src="models/mnist/05_14_2022/13_00_31_d_batchnorm/samples/final.png" />
+    </td>
+    <td>
+        <img src="models/mnist/05_14_2022/13_00_31_d_batchnorm/metrics.png" />
+    </td>
+</tr></table>
+
+</details>
+
+
+
+
+
+
+
+
+
+## CIFAR-10
+
+
+
+
+
+
+
+
+
 
 
 ## Notes
