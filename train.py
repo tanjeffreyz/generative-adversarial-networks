@@ -1,5 +1,6 @@
 import torch
 import os
+import ssl
 import argparse
 import torchvision.transforms as T
 import numpy as np
@@ -42,6 +43,7 @@ else:
 G.to(device)
 D.to(device)
 
+ssl._create_default_https_context = ssl._create_unverified_context      # Patch expired certificate error
 train_set = dataset(
     root='data', train=True, download=True,
     transform=T.Compose([

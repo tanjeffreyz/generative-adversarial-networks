@@ -9,8 +9,7 @@ Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 
 ## Results
 ### MNIST
-
-
+![](models/mnist/05_16_2022/17_05_14/samples/final.png)
 
 
 ### CIFAR-10

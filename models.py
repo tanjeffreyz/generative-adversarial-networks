@@ -98,6 +98,12 @@ class Cifar10G(nn.Module):
     def __init__(self, latent_size):
         super().__init__()
 
+        self.model = nn.Sequential(
+            nn.Linear(latent_size, 3*8*8),
+            nn.LeakyReLU(negative_slope=0.2),
+            nn.ConvTranspose2d(1, 3)
+        )
+
 
 class Cifar10D(nn.Module):
     def __init__(self):

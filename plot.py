@@ -66,11 +66,11 @@ def generate_samples(target, cp):
 
 if __name__ == '__main__':
     SHOW = False
-    TARGET = 'models/mnist/05_16_2022/17_05_14 (50 epochs)'
+    TARGET = 'models/mnist/05_16_2022/17_55_39'
     WEIGHTS = (
         'final',
     )
 
-    plot_metrics(TARGET)
+    plot_metrics(TARGET, stride=30)
     for c in WEIGHTS:
         generate_samples(TARGET, c)
