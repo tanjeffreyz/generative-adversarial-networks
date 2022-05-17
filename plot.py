@@ -66,7 +66,7 @@ def generate_samples(target, cp):
 
 if __name__ == '__main__':
     SHOW = False
-    TARGET = 'models/mnist/05_16_2022/17_05_14'
+    TARGET = 'models/mnist/05_16_2022/17_05_14 (50 epochs)'
     WEIGHTS = (
         'final',
     )
