@@ -35,6 +35,7 @@ if args.dataset == 'mnist':
     epochs = 50
     cp_period = 1
     batch_size = 128
+    transform = T.ToTensor()
 else:
     dataset = CIFAR10
     G = Cifar10G(100)
@@ -42,19 +43,32 @@ else:
     epochs = 100
     cp_period = 2
     batch_size = 64
+    transform = T.Compose([
+        T.ToTensor(),
+        lambda x: x - torch.mean(x, (1, 2), keepdim=True),
+    ])
 G.to(device)
 D.to(device)
 
 ssl._create_default_https_context = ssl._create_unverified_context      # Patch expired certificate error
 train_set = dataset(
     root='data', train=True, download=True,
-    transform=T.Compose([
-        T.ToTensor(),
-        # T.Normalize((0.1307,), (0.3081,))
-    ])
+    transform=transform
 )
 train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)
 train_iter = iter(train_loader)
+
+# --- Visualize the data ---
+# print(next(train_iter)[0][0])
+# from matplotlib import pyplot as plt
+# from torchvision.utils import make_grid
+# grid = make_grid(next(train_iter)[0], nrow=16)
+# fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+# ax.imshow(grid.permute(1, 2, 0))
+# plt.axis('off')
+# plt.tight_layout()
+# plt.show()
+# exit()
 
 g_opt = torch.optim.Adam(G.parameters(), lr=args.lr)
 d_opt = torch.optim.Adam(D.parameters(), lr=args.lr)
@@ -127,6 +141,7 @@ for i in tqdm(range(len(train_loader) * epochs), desc='Iteration'):
         real_loss += l_real.item() / args.k
         fake_error += torch.mean(d_fake).item() / args.k
         real_acc += torch.mean(d_real).item() / args.k
+
         del batch, data, real, fake, noise, d_fake, d_real, l_fake, l_real, d_loss
     d_losses_fake = np.append(d_losses_fake, [[i], [fake_loss]], axis=1)
     d_losses_real = np.append(d_losses_real, [[i], [real_loss]], axis=1)
@@ -148,9 +163,13 @@ for i in tqdm(range(len(train_loader) * epochs), desc='Iteration'):
     g_loss.backward()
     g_opt.step()
 
-    del real, noise, g_loss
+    del real, noise
     g_losses = np.append(g_losses, [[i], [g_loss.item()]], axis=1)
     writer.add_scalar('Losses/Generator', g_loss.item(), i)
+    del g_loss
+
+    if i % 3 == 0:
+        torch.cuda.empty_cache()
 
     # Save
     if i % (len(train_loader) * cp_period) == 0:

@@ -26,6 +26,9 @@ class Reshape(nn.Module):
         return x.view(x.shape[0], *self.shape)
 
 
+#####################
+#       MNIST       #
+#####################
 class MnistG(nn.Module):
     def __init__(self, latent_size, linear=False):
         super().__init__()
@@ -94,15 +97,24 @@ class MnistD(nn.Module):
         return self.model.forward(x)
 
 
+#########################
+#       CIFAR-10        #
+#########################
 class Cifar10G(nn.Module):
     def __init__(self, latent_size):
         super().__init__()
 
         self.latent_size = latent_size
         self.model = nn.Sequential(
-            nn.Linear(self.latent_size, 128*8*8),
+            nn.Linear(self.latent_size, 256*4*4),
             nn.LeakyReLU(negative_slope=0.2),
-            Reshape(128, 8, 8),
+            Reshape(256, 4, 4),
+            nn.ConvTranspose2d(             # 4x4 -> 8x8
+                256, 128,
+                kernel_size=3, stride=2,
+                padding=1, output_padding=1
+            ),
+            nn.LeakyReLU(negative_slope=0.2),
             nn.ConvTranspose2d(             # 8x8 -> 16x16
                 128, 128,
                 kernel_size=3, stride=2,
@@ -130,10 +142,12 @@ class Cifar10D(nn.Module):
         self.model = nn.Sequential(
             nn.Conv2d(3, 64, kernel_size=3, stride=2, padding=1),       # 32x32 -> 16x16
             nn.LeakyReLU(negative_slope=0.2),
-            nn.Conv2d(64, 64, kernel_size=3, stride=2, padding=1),      # 16x16 -> 8x8
+            nn.Conv2d(64, 128, kernel_size=3, stride=2, padding=1),     # 16x16 -> 8x8
+            nn.LeakyReLU(negative_slope=0.2),
+            nn.Conv2d(128, 256, kernel_size=3, stride=2, padding=1),    # 8x8 -> 4x4
             nn.LeakyReLU(negative_slope=0.2),
             nn.Flatten(),
-            nn.Linear(64*8*8, 1),
+            nn.Linear(256*4*4, 1),
             nn.Sigmoid()
         )
 
