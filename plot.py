@@ -66,7 +66,7 @@ def generate_samples(target, cp):
 
 if __name__ == '__main__':
     SHOW = False
-    TARGET = 'models/cifar10/05_17_2022/18_46_55'
+    TARGET = 'models/cifar10/05_18_2022/15_20_38_subtracted_mean'
     WEIGHTS = (
         'cp_7820',
         'cp_14076',

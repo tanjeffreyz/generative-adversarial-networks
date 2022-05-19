@@ -33,7 +33,7 @@ if args.dataset == 'mnist':
     G = MnistG(100)
     D = MnistD()
     epochs = 50
-    cp_period = 1
+    cp_period = 2
     batch_size = 128
     transform = T.ToTensor()
 else:
@@ -41,12 +41,13 @@ else:
     G = Cifar10G(100)
     D = Cifar10D()
     epochs = 100
-    cp_period = 2
+    cp_period = 5
     batch_size = 64
-    transform = T.Compose([
-        T.ToTensor(),
-        lambda x: x - torch.mean(x, (1, 2), keepdim=True),
-    ])
+    # transform = T.Compose([
+    #     T.ToTensor(),
+    #     lambda x: x - torch.mean(x, (1, 2), keepdim=True),
+    # ])
+    transform = T.ToTensor()
 G.to(device)
 D.to(device)
 
