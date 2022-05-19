@@ -66,13 +66,12 @@ def generate_samples(target, cp):
 
 if __name__ == '__main__':
     SHOW = False
-    TARGET = 'models/cifar10/05_18_2022/15_20_38_subtracted_mean'
+    TARGET = 'models/cifar10/05_19_2022/12_24_11_discriminator_dropout'
     WEIGHTS = (
         'cp_7820',
-        'cp_14076',
         'cp_23460',
-        'cp_31280',
-        'cp_60996',
+        'cp_39100',
+        'cp_62560',
         'final'
     )
 
