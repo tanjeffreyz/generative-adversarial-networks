@@ -147,6 +147,7 @@ class Cifar10D(nn.Module):
             nn.Conv2d(128, 256, kernel_size=3, stride=2, padding=1),    # 8x8 -> 4x4
             nn.LeakyReLU(negative_slope=0.2),
             nn.Flatten(),
+            nn.Dropout(p=0.333),
             nn.Linear(256*4*4, 1),
             nn.Sigmoid()
         )
