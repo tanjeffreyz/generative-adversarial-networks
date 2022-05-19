@@ -4,6 +4,9 @@ PyTorch implementation of "Generative Adversarial Networks" by Ian J. Goodfellow
 Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 
 
+
+
+
 ## MNIST Results
 
 <table><tr>
@@ -62,7 +65,40 @@ Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 
 ## CIFAR-10 Results
 
+<table><tr>
+    <td>
+        <img src="models/cifar10/05_17_2022/16_19_10_larger_generator/samples/final.png" />
+    </td>
+    <td>
+        <img src="models/cifar10/05_17_2022/16_19_10_larger_generator/metrics.png" />
+    </td>
+</tr></table>
 
+
+<details><summary><b>Notable Failures</b></summary>
+
+### De-meaned Data
+<table><tr>
+    <td>
+        <img src="models/cifar10/05_18_2022/15_20_38_subtracted_mean/samples/final.png" />
+    </td>
+    <td>
+        <img src="models/cifar10/05_18_2022/15_20_38_subtracted_mean/metrics.png" />
+    </td>
+</tr></table>
+
+
+### Discriminator using Dropout
+<table><tr>
+    <td>
+        <img src="models/cifar10/05_19_2022/12_24_11_discriminator_dropout/samples/final.png" />
+    </td>
+    <td>
+        <img src="models/cifar10/05_19_2022/12_24_11_discriminator_dropout/metrics.png" />
+    </td>
+</tr></table>
+
+</details>
 
 
 
