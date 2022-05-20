@@ -40,7 +40,7 @@ else:
     dataset = CIFAR10
     G = Cifar10G(100)
     D = Cifar10D()
-    epochs = 100
+    epochs = 200
     cp_period = 5
     batch_size = 64
     # transform = T.Compose([
@@ -71,8 +71,8 @@ train_iter = iter(train_loader)
 # plt.show()
 # exit()
 
-g_opt = torch.optim.Adam(G.parameters(), lr=args.lr)
-d_opt = torch.optim.Adam(D.parameters(), lr=args.lr)
+g_opt = torch.optim.Adam(G.parameters(), lr=args.lr, betas=(0.5, 0.999))
+d_opt = torch.optim.Adam(D.parameters(), lr=args.lr, betas=(0.5, 0.999))
 
 loss_function = torch.nn.BCELoss()
 
@@ -173,8 +173,9 @@ for i in tqdm(range(len(train_loader) * epochs), desc='Iteration'):
         torch.cuda.empty_cache()
 
     # Save
-    if i % (len(train_loader) * cp_period) == 0:
+    if i % 100 == 0:
         save_metrics()
+    if i % (len(train_loader) * cp_period) == 0:
         torch.save(D.state_dict(), os.path.join(d_weight_dir, f'cp_{i}'))
         torch.save(G.state_dict(), os.path.join(g_weight_dir, f'cp_{i}'))
 

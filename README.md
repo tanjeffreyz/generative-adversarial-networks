@@ -67,10 +67,10 @@ Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 
 <table><tr>
     <td>
-        <img src="models/cifar10/05_17_2022/16_19_10_larger_generator/samples/final.png" />
+        <img src="models/cifar10/05_20_2022/11_00_26_increased_momentum/samples/final.png" />
     </td>
     <td>
-        <img src="models/cifar10/05_17_2022/16_19_10_larger_generator/metrics.png" />
+        <img src="models/cifar10/05_20_2022/11_00_26_increased_momentum/metrics.png" />
     </td>
 </tr></table>
 
@@ -88,22 +88,28 @@ Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 </tr></table>
 
 
-### Discriminator using Dropout
+### Low Dropout
 <table><tr>
     <td>
-        <img src="models/cifar10/05_19_2022/12_24_11_discriminator_dropout/samples/final.png" />
+        <img src="models/cifar10/05_19_2022/16_14_33_discriminator_dropout/samples/final.png" />
     </td>
     <td>
-        <img src="models/cifar10/05_19_2022/12_24_11_discriminator_dropout/metrics.png" />
+        <img src="models/cifar10/05_19_2022/16_14_33_discriminator_dropout/metrics.png" />
+    </td>
+</tr></table>
+
+
+### High Learning Rate
+<table><tr>
+    <td>
+        <img src="models/cifar10/05_19_2022/18_41_08_doubled_learning_rate/samples/cp_97750.png" />
+    </td>
+    <td>
+        <img src="models/cifar10/05_19_2022/18_41_08_doubled_learning_rate/metrics.png" />
     </td>
 </tr></table>
 
 </details>
-
-
-
-
-
 
 
 
