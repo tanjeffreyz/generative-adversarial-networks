@@ -32,8 +32,8 @@ if args.dataset == 'mnist':
     dataset = MNIST
     G = MnistG(100)
     D = MnistD()
-    epochs = 50
-    cp_period = 2
+    epochs = 100
+    cp_period = 5
     batch_size = 128
     transform = T.ToTensor()
 else:

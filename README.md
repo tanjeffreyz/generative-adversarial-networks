@@ -11,10 +11,10 @@ Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 
 <table><tr>
     <td>
-        <img src="models/mnist/05_16_2022/17_05_14/samples/final.png" />
+        <img src="models/mnist/05_20_2022/14_56_30/samples/final.png" />
     </td>
     <td>
-        <img src="models/mnist/05_16_2022/17_05_14/metrics.png" />
+        <img src="models/mnist/05_20_2022/14_56_30/metrics.png" />
     </td>
 </tr></table>
 
