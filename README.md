@@ -1,5 +1,7 @@
 <!-- 
 tags: mlpi
+title: Generative Adversarial Networks
+authors: Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio
 category: Generative Adversarial Networks
 -->
 
