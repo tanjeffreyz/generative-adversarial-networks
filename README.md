@@ -1,3 +1,9 @@
+<!-- 
+tags: mlpi
+category: Generative Adversarial Networks
+-->
+
+
 <h1 align="center">Generative Adversarial Networks</h1>
 
 PyTorch implementation of "Generative Adversarial Networks" by Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, 
