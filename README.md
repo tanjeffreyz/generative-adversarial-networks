@@ -15,7 +15,6 @@ Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 
 
 
-
 ## MNIST Results
 
 <table><tr>
