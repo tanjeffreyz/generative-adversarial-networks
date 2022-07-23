@@ -4,7 +4,7 @@ title: Generative Adversarial Networks
 authors: Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio
 images: models/mnist/05_20_2022/14_56_30/samples/final.png, models/cifar10/05_20_2022/11_00_26_increased_momentum/samples/final.png, models/mnist/05_20_2022/14_56_30/metrics.png, models/cifar10/05_20_2022/11_00_26_increased_momentum/metrics.png
 category: Architectures/Generative Adversarial Networks
--->
+--> 
 
 
 <h1 align="center">Generative Adversarial Networks</h1>
