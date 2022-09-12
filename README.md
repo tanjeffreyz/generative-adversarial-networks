@@ -13,8 +13,6 @@ PyTorch implementation of "Generative Adversarial Networks" by Ian J. Goodfellow
 Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio.
 
 
-
-
 ## MNIST Results
 
 <table><tr>
